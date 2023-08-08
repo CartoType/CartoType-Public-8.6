@@ -333,7 +333,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(aTitle);
         builder.setMessage(aText);
-        AlertDialog dialog = builder.create();
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
             {
             @Override

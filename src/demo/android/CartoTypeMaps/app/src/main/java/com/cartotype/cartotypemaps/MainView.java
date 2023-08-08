@@ -110,7 +110,7 @@ public class MainView extends MapView implements DialogInterface.OnClickListener
         return m_end_x != 0 && m_end_y != 0;
         }
 
-    private Framework m_framework;
+    private final Framework m_framework;
     private double m_cur_x;
     private double m_cur_y;
     private double m_start_x;
