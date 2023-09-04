@@ -22,7 +22,6 @@ CFindTextDialog::CFindTextDialog():
                                                                   CartoType::StringMatchMethodFlag::FoldCase,
                                                                   CartoType::StringMatchMethodFlag::IgnoreSymbols,
                                                                   CartoType::StringMatchMethodFlag::IgnoreWhitespace);
-    m_find_param.TimeOut = 2;
     m_find_param.Merge = true;
     }
 
@@ -112,13 +111,6 @@ void CFindTextDialog::PopulateComboBox()
         return;
         }
 
-    // Get the current text.
-    CartoType::String text;
-    SetString(text,FindText);
-
-    // Find up to 64 items starting with the current text or, if the text is the name of a feature type, matching that feature type.
-    auto poi = CartoType::FeatureTypeFromName(text);
-
     auto find_callback = [this](std::unique_ptr<CartoType::MapObjectGroupArray> aMapObjectGroupArray)
         {
         std::unique_lock<std::mutex> lock(m_map_object_group_array_mutex);
@@ -127,23 +119,15 @@ void CFindTextDialog::PopulateComboBox()
         SetComboboxStrings();
         };
 
-    if (poi != CartoType::FeatureType::Invalid)
-        {
-        CartoType::FindNearbyParam param;
-        param.Type = poi;
-        param.Location = m_find_param.Location;
-        m_framework->FindAsync(find_callback,param,true);
-        }
-    else
-        {
-        CartoType::FindParam param(m_find_param);
-        param.Text = text;
-        if (Fuzzy)
-            param.StringMatchMethod = CartoType::StringMatchMethod::Fuzzy;
-        if (Symbols)
-            param.StringMatchMethod -= CartoType::StringMatchMethodFlag::IgnoreSymbols;
-        m_framework->FindAsync(find_callback,param,true);
-        }
+    // Find up to 64 items starting with the current text.
+    CartoType::FindParam param = m_find_param;
+    SetString(param.Text,FindText);
+    if (Fuzzy)
+        param.StringMatchMethod = CartoType::StringMatchMethod::Fuzzy;
+    if (Symbols)
+        param.StringMatchMethod -= CartoType::StringMatchMethodFlag::IgnoreSymbols;
+    param.Location = m_find_param.Location;
+    m_framework->FindAsync(find_callback,param,true);
 
     // Put them in the combo box.
     SetComboboxStrings();

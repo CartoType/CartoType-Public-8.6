@@ -35,7 +35,7 @@ class FindParam
     size_t MaxObjectCount = SIZE_MAX;
     /** The clip path; no clipping is done if Clip is empty. */
     Geometry Clip;
-    /** The current location. If it is non-empty, objects in or near this region are preferred. It may be a single point. */
+    /** The current location. If it is non-empty, objects in or near this region are preferred. */
     Geometry Location;
     /** A list of layer names separated by spaces or commas. If it is empty all layers are searched. Layer names may contain the wild cards * and ?. */
     String Layers;

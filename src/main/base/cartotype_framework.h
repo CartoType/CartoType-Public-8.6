@@ -70,7 +70,6 @@ class CMemoryMapDataBase;
 class CNavigator;
 class GraphicsContext;
 class C32BitColorBitmapGraphicsContext;
-class CStackAllocator;
 class CTileServer;
 class MapTransform;
 class CMapRendererImplementation;

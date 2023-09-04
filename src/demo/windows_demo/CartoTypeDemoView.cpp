@@ -960,7 +960,6 @@ void CCartoTypeDemoView::OnInitialUpdate()
     int h = rect.bottom - rect.top;
     param.ViewHeight = h;
     param.ViewWidth = w;
-    param.TextIndexLevels = 0;
     
     m_framework = CartoType::Framework::New(error,param);
     if (!error)

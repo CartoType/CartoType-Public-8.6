@@ -1042,7 +1042,7 @@ void MapForm::CalculateAndDisplayRoute()
             iterations = 16;
         else if (iterations > 256)
             iterations = 256;
-        auto r = m_framework->CreateBestRoute(error,profile,cs,CartoType::CoordType::Map,true,true,iterations);
+        auto r = m_framework->CreateBestRoute(error,profile,cs,CartoType::CoordType::Map,true,true,uint32_t(iterations));
         if (!error)
             error = m_framework->UseRoute(*r,true);
         }
@@ -1283,7 +1283,7 @@ size_t MapForm::BuiltInProfileCount()
 
 const CartoType::RouteProfile* MapForm::BuiltInProfile(size_t aIndex)
     {
-    return m_framework->BuiltInProfile(aIndex);
+    return m_framework->BuiltInProfile(uint32_t(aIndex));
     }
 
 void MapForm::SetRouteProfileIndex(size_t aIndex)
@@ -1293,7 +1293,7 @@ void MapForm::SetRouteProfileIndex(size_t aIndex)
 
     m_route_profile_index = aIndex;
     if (m_framework->BuiltInProfileCount())
-        m_framework->SetBuiltInProfile(aIndex);
+        m_framework->SetBuiltInProfile(uint32_t(aIndex));
     else if (aIndex == 5)
         m_framework->SetMainProfile(m_main_window.CustomRouteProfile());
     else
