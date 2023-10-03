@@ -154,11 +154,6 @@ class MapObject: public MPath
     The base implementation does nothing.
     */
     virtual void Simplify(int32_t aResolution);
-    /**
-    Splits a line object into objects with no more than aMaxPoints points each.
-    Puts any extra objects created into aExtraObjectArray.
-    */
-    void Split(size_t aMaxPoints,MapObjectArray& aExtraObjectArray);
  
     /** Returns a pointer to a TAttribSet if possible; used by makemap. */
     virtual TAttribSet* AttribSet() { return nullptr; }

@@ -5,7 +5,7 @@ Copyright (C) 2020-2023 CartoType Ltd.
 For more information see http://www.cartotype.com.
 -->
 
-<CartoTypeStyleSheet background='lightblue' border='lightgrey' labelFormat=';int_name;name:en;ref+" "{font-style:italic}"("name:en")"' landLayer='outline' name='OpenStreetMap style'>
+<CartoTypeStyleSheet background='lightblue' border='lightgrey' labelFormat=';int_name;name:en;ref+{font-style:italic}"&#10;("name:en")"' landLayer='outline' name='OpenStreetMap style'>
     <defs>
         <icon id='dot-icon' width='3m,1.3pt,6pt'>
             <svg width="100" height="100">
@@ -216,7 +216,7 @@ For more information see http://www.cartotype.com.
         <def id='location-arrow' string='M -500 -500 L 500 0 L -500 500 L -300 0 Z'/>
         <macro id='minor-road-label'>
             <scale max='40000'>
-                <label case='assume-title' color='dimgrey' font-size='75%,5pt,12pt' glow='white' glowWidth='7%,0.5pt' priority='-2' wrapLines='0'/>
+                <label case='assume-title' color='dimgrey' font-size='75%,5pt,12pt' glow='white' glowWidth='7%,0.5pt' priority='-2' wrapLines='0' labelFormat=';int_name;name:en;ref+{font-style:italic}" ("name:en")"'/>
             </scale>
         </macro>
         <macro id='grey-tunnel'>
@@ -283,7 +283,7 @@ For more information see http://www.cartotype.com.
         <macro id='one-way-arrow'>
             <oneWayArrow fill='~color~' gap='2500'  opacity='0.5' path='#arrow'/>
         </macro>
-        <hachure angle='90' color='blue+0.9white' id='wetland-hachure' interval='2.5pt' width='0.75pt'/>
+        <hachure angle='90' color='ncsblue+0.8white' id='wetland-hachure' interval='2.5pt' width='0.75pt'/>
         <hachure angle='135' color='red' id='warning-hachure' interval='3pt' width='1pt'/>
         <macro id='water-minor'>
             <scale max='150000'>
@@ -335,16 +335,37 @@ For more information see http://www.cartotype.com.
             </condition>
         </condition>
     </layer>
+
+    <scale max='100000'>
+        <layer name='contour'>
+            <scale min='50000'>
+                <condition exp='(_h % 50) == 0'>
+                    <line fill='#C76300FF+white' width='0.4pt'/>
+                    <label priority='-10' font-size='6pt' color='#C76300FF' glow='white' glowWidth='7%,0.5pt' labelFormat='_h'/>
+                </condition>
+            </scale>
+            <scale max='50000'>
+                <condition exp='(_h % 50) == 0'>
+                    <line fill='#C76300FF+white' width='0.8pt'/>
+                    <label priority='-10' font-size='6pt' color='#C76300FF' glow='white' glowWidth='7%,0.5pt' labelFormat='_h'/>
+                </condition>
+                <condition exp='(_h % 50) != 0'>
+                    <line fill='#C76300FF+white' width='0.4pt'/>
+                </condition>
+            </scale>
+        </layer>
+    </scale>
+
     <layer name='image'>
         <shape fill='white'/>
     </layer>
 
     <scale min='4000000'>
-        <layer name='NE/image'>
+        <layer name='image/NE/'>
             <shape fill='white'/>
         </layer>
     </scale>
-    
+
     <scale min='20000'>
         <layer name='terrain-height-feet'>
             <shape fill='url(#terrain-feet-height-ramp)'/>
@@ -353,12 +374,7 @@ For more information see http://www.cartotype.com.
             <shape fill='#772'/>
         </layer>
     </scale>
-    <scale min='150000' max='10000000'>
-        <layer name='urban-area'>
-            <scale max='4000000'><shape fill='khaki+0.2orange+0.4white' opacity='0.4'/></scale>
-            <scale min='4000000'><shape fill='khaki+orange+0.2white'/></scale>
-        </layer>
-    </scale>
+
     <scale min='1000'>
         <layer name='boundary/major'>
             <condition exp='@=1'>
@@ -557,11 +573,11 @@ For more information see http://www.cartotype.com.
             </scale>
             <scale max='150000'>
                 <condition exp='@feature_type="pea" and _munro="yes"'>
-                    <label case='assume-title' color='ncsred' labelFormat=';int_name;name:en+{font-style:italic}"("name:en")"+{font-style:roman}" ["_munro_number"]"+" "_ele' wrapLines='0' wrapWidth='10em'/>
+                    <label case='assume-title' color='ncsred' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"+{font-style:roman}" ["_munro_number"]"+" "_ele' wrapLines='0' wrapWidth='10em'/>
                     <icon ref='peak-icon' color='ncsred'/>
                 </condition>
                 <condition exp='@feature_type in { "fel","pea","vol" }'>
-                    <label case='assume-title' color='grey' labelFormat=';int_name;name:en+" "{font-style:italic}"("name:en")"+" "_ele' wrapWidth='10em'/>
+                    <label case='assume-title' color='grey' labelFormat=';int_name;name:en+" "{font-style:italic}"&#10;("name:en")"+" "_ele' wrapWidth='10em'/>
                     <icon ref='peak-icon' color='grey'/>
                 </condition>
             </scale>
@@ -577,11 +593,19 @@ For more information see http://www.cartotype.com.
             <macro ref='water-minor'/>
         </layer>
     </scale>
+
+    <scale min='150000' max='10000000'>
+        <layer name='urban-area'>
+            <scale max='4000000'><shape fill='khaki+0.2orange+0.4white' opacity='0.4'/></scale>
+            <scale min='4000000'><shape fill='khaki+orange+0.2white'/></scale>
+        </layer>
+    </scale>
+
     <layer name='waterway/major'>
         <line fill='lightblue'/>
         <shape fill='lightblue'/>
 
-        <condition exp='@feature_type in { "wat","rvb","doc","rsv" }'>
+        <condition exp='(@size gt 0.5cm) and (@feature_type in { "wat","rvb","doc","rsv" })'>
             <shape fill='lightblue'/>
             <condition exp='@size gt 1cm'>
                 <label case='none' color='ncsblue' font-size='25m,5pt,8pt' font-family='serif' font-style='italic' position='horizontal'  maxPolygonLabelExtra='1' maxPolygonLabelLength='3'
@@ -696,7 +720,7 @@ For more information see http://www.cartotype.com.
                 <condition exp='@feature_type in { "secondary road", "secondary road link" }'>
                     <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+khaki+0.6white' width='10m@6000_40m@40000,0.6pt'/>
                     <scale max='40000'>
-                        <label case='assume-title' color='dimgrey' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+" "ref' maxScale='75000'/>
+                        <label case='assume-title' color='dimgrey' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"+" "ref' maxScale='75000'/>
                     </scale>
                     <macro color='darkkhaki+black' ref='one-way-arrow'/>
                     <macro ref='standard-bridge'/>
@@ -710,7 +734,7 @@ For more information see http://www.cartotype.com.
                     <condition exp='@feature_type in { "primary road", "primary road link" }'>
                         <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.6white' width='12m@6000_72m@75000,0.5pt'/>
                         <scale max='50000'>
-                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en' maxScale='100000'/>
+                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"' maxScale='100000'/>
                         </scale>
                         <scale max='250000'>
                             <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='80%,5pt,18pt' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.8white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
@@ -724,7 +748,7 @@ For more information see http://www.cartotype.com.
                     <condition exp='@feature_type="trunk road link"'>
                         <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.5white' width='10m@6000_60m@75000,0.5pt'/>
                         <scale max='75000'>
-                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en' letter-spacing='0.2em' word-spacing='0.1em'/>
+                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"' letter-spacing='0.2em' word-spacing='0.1em'/>
                         </scale>
                         <macro color='slategrey' ref='one-way-arrow'/>
                         <macro ref='standard-bridge'/>
@@ -738,7 +762,7 @@ For more information see http://www.cartotype.com.
                             <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='75%,5pt,18pt' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.6white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
                         </scale>
                         <scale max='50000'>
-                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en' letter-spacing='0.2em' word-spacing='0.1em'/>
+                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"' letter-spacing='0.2em' word-spacing='0.1em'/>
                         </scale>
                         <macro color='slategrey' ref='one-way-arrow'/>
                         <macro ref='standard-bridge'/>
@@ -903,7 +927,7 @@ For more information see http://www.cartotype.com.
         <layer name='building'>
             <scale max='6000'>
                 <shape border='lightgrey+black' borderWidth='0.5pt' fill='lightgrey+burlywood' height='yes' opacity='0.5'/>
-                <label case='assume-title' color='grey' font-size='8m,4pt,7pt' glow='white' glowWidth='5%,0.5pt' labelFormat=';int_name;name:en+" "{font-style:italic}"("name:en")"+" "addr:housenumber+" "addr:housename' priority='1' wrapWidth='10em' condense='yes'/>
+                <label case='assume-title' color='grey' font-size='8m,4pt,7pt' glow='white' glowWidth='5%,0.5pt' labelFormat=';int_name;name:en+" "{font-style:italic}"&#10;("name:en")"+" "addr:housenumber+" "addr:housename' priority='1' wrapWidth='10em' condense='yes'/>
             </scale>
             <scale min='6000'>
                 <shape fill='lightgrey+burlywood' height='yes' opacity='0.5'/>
@@ -912,7 +936,7 @@ For more information see http://www.cartotype.com.
     </scale>
     <scale max='6000'>
         <layer name='address'>
-            <label color='dimgrey' font-size='8m,3pt,6pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';+" "{font-style:italic}"("name:en")"+" "addr:housenumber+" "addr:housename' position='point' priority='1'/>
+            <label color='dimgrey' font-size='8m,3pt,6pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';+" "{font-style:italic}"&#10;("name:en")"+" "addr:housenumber+" "addr:housename' position='point' priority='1'/>
         </layer>
     </scale>
     <scale max='15000'>
@@ -1019,11 +1043,11 @@ For more information see http://www.cartotype.com.
             <scale max='7500'>
                 <condition exp='@feature_type in { "bnk","bst","bui","col","fis","gry","kin","pbu","plw","pof","pol","sch","swi","uni" }'>
                     <condition exp='@=0'>
-                        <label color='grey' font-size='7m,4pt,7pt' labelFormat=';int_name;name:en+" "{font-style:italic}"("name:en")"+" "addr:housenumber+" "addr:housename'/>
+                        <label color='grey' font-size='7m,4pt,7pt' labelFormat=';int_name;name:en+" "{font-style:italic}"&#10;("name:en")"+" "addr:housenumber+" "addr:housename'/>
                         <icon ref='dot-icon'/>
                     </condition>
                     <condition exp='@!=0'>
-                        <label color='grey' font-size='7m,4pt,7pt' labelFormat=';int_name;name:en+" "{font-style:italic}"("name:en")"+" "addr:housenumber+" "addr:housename' maxPolygonLabelLength='6'/>
+                        <label color='grey' font-size='7m,4pt,7pt' labelFormat=';int_name;name:en+" "{font-style:italic}"&#10;("name:en")"+" "addr:housenumber+" "addr:housename' maxPolygonLabelLength='6'/>
                     </condition>
                 </condition>
             </scale>

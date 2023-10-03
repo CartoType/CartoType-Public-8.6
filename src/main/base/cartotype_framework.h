@@ -405,6 +405,7 @@ class Framework: public MNavigatorObserver
     Result UnloadMapByHandle(uint32_t aHandle);
     Result EnableMapByHandle(uint32_t aHandle,bool aEnable);
     Result EnableAllMaps();
+    bool MapIsEnabled(uint32_t aHandle) const;
     uint32_t LastMapHandle() const;
     uint32_t MainMapHandle() const;
     uint32_t MemoryMapHandle() const;
@@ -501,7 +502,8 @@ class Framework: public MNavigatorObserver
 
     void EnableLayer(const String& aLayerName,bool aEnable);
     bool LayerIsEnabled(const String& aLayerName) const;
-    void SetDisabledLayers(const std::set<String>& aLayerNames);
+    void SetDisabledLayersInternal(const std::set<String>& aLayerNames);
+    void SetDisabledMapsInternal(const std::set<uint32_t>& aMaps);
     std::vector<String> LayerNames();
 
     Result ConvertCoords(double* aCoordArray,size_t aCoordArraySize,CoordType aFromCoordType,CoordType aToCoordType) const;
@@ -545,7 +547,7 @@ class Framework: public MNavigatorObserver
     const BitmapView* LabelBitmap(Result& aError,bool* aRedrawWasNeeded = nullptr);
     const BitmapView* MemoryDataBaseMapBitmap(Result& aError,bool* aRedrawWasNeeded = nullptr);
     void DrawNotices(GraphicsContext& aGc) const;
-    void EnableDrawingMemoryDataBase(bool aEnable);
+    Result EnableDrawingMemoryDataBase(bool aEnable);
     void ForceRedraw();
     bool ClipBackgroundToMapBounds(bool aEnable);
     bool DrawBackground(bool aEnable);
@@ -772,6 +774,7 @@ class Framework: public MNavigatorObserver
     void HandleChangedMapData();
     void InvalidateMapBitmaps() { iMapBitmapType = TMapBitmapType::None; }
     void HandleChangedView();
+    void HandleChangedMapEnabled();
     void HandleChangedLayer() { InvalidateMapBitmaps(); LayerChanged(); }
     void CreateTileServer(int32_t aTileWidthInPixels,int32_t aTileHeightInPixels);
     void SetRoutePositionAndVector(const Point& aPos,const Point& aVector);
@@ -792,6 +795,7 @@ class Framework: public MNavigatorObserver
     void NotifyObservers(std::function<void(MFrameworkObserver&)>);
     void DeleteNullObservers();
     void ViewChanged() { NotifyObservers([](MFrameworkObserver& aP) { aP.OnViewChange(); }); }
+    void MapEnabledChanged() { NotifyObservers([](MFrameworkObserver& aP) { aP.OnMapEnabledChange(); }); }
     void MainDataChanged() { NotifyObservers([](MFrameworkObserver& aP) { aP.OnMainDataChange(); }); }
     void DynamicDataChanged() { NotifyObservers([](MFrameworkObserver& aP) { aP.OnDynamicDataChange(); }); }
     void StyleChanged() { NotifyObservers([](MFrameworkObserver& aP) { aP.OnStyleChange(); }); }

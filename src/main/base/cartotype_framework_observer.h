@@ -31,9 +31,13 @@ class MFrameworkObserver: public MNavigatorObserver
     virtual void OnViewChange() { }
     
     /**
+    This virtual function is called when a map is enabled or disabled.
+    */
+    virtual void OnMapEnabledChange() { }
+
+    /**
     This virtual function is called when the map data changes,
-    which can be caused by loading a new map, unloading a map,
-    or enabling or disabling a map.
+    which is caused by loading or unloading a map,
     */
     virtual void OnMainDataChange() { }
     
