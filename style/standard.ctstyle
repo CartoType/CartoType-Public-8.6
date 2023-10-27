@@ -527,7 +527,7 @@ For more information see http://www.cartotype.com.
     </scale>
     <scale min='40000' max='100000'>
         <layer name='place/minor'>
-            <label case='assume-title' color='darkslategrey' duplicate='10000m,512pt' font-size='130m,5pt,16pt' glow='white' glowWidth='7%,0.5pt' position='point' priority='0' wrapWidth='10em'/>
+            <label case='assume-title' color='darkslategrey' duplicate='10000m,512pt' font-size='130m,5pt,16pt' glow='white' glowWidth='7%,0.5pt' position='point' priority='-5' wrapWidth='10em'/>
             <condition exp='@=0 and @feature_type="vil"'/>
             <condition exp='@feature_type="sub"'/>
             <condition exp='@=0 and @feature_type="ham"'/>
@@ -831,15 +831,6 @@ For more information see http://www.cartotype.com.
                     <macro ref='standard-tunnel'/>
                 </scale>
             </condition>
-            <scale max='150000'>
-                <condition exp='@feature_type="stn"'>
-                    <icon ref='station-icon'/>
-                    <label color='grey+orange' condense='no' font-size='25m,6pt,11pt' font-stretch='condensed' glow='white' glowWidth='7%,0.5pt' priority='-4' wrapWidth='10em'/>
-                    <scale max='75000'>
-                        <shape fill='brown' opacity='0.1'/>
-                    </scale>
-                </condition>
-            </scale>
         </layer>
     </scale>
     <scale max='400000'>
@@ -1020,6 +1011,10 @@ For more information see http://www.cartotype.com.
                     <label priority='-3'/>
                     <icon ref='traffic-light-icon'/>
                 </condition>
+                <condition exp='@feature_type="plf"'>
+                    <shape fill='brown' opacity='0.2'/>
+                    <line fill='brown+0.8white' width='1m'/>
+                </condition>
             </scale>
             <scale max='40000'>
                 <condition exp='@feature_type="fue"'>
@@ -1099,13 +1094,13 @@ For more information see http://www.cartotype.com.
         <layer name='place/major'>
             <label duplicate='10000m,512pt' position='point'/>
             <condition exp='@=0 and @feature_type="cit"'>
-                <label baseline='alphabetic' case='upper' color='dimgrey' font-size='200m,8pt,24pt' font-weight='bold' letter-spacing='0.2em' opacity='0.4' word-spacing='0.1em'/>
+                <label baseline='alphabetic' case='upper' color='dimgrey' font-size='200m,8pt,24pt' font-weight='bold' letter-spacing='0.2em' opacity='0.4' word-spacing='0.1em' priority='-5' />
             </condition>
             <condition exp='@=0 and @feature_type="tow"'>
-                <label baseline='alphabetic' case='upper' color='darkslategrey' font-size='150m,6pt,18pt' font-weight='bold' letter-spacing='0.2em' opacity='0.4' word-spacing='0.1em'/>
+                <label baseline='alphabetic' case='upper' color='darkslategrey' font-size='150m,6pt,18pt' font-weight='bold' letter-spacing='0.2em' opacity='0.4' word-spacing='0.1em' priority='-5'/>
             </condition>
             <condition exp='@feature_type="isl"'>
-                <label case='assume-title' color='darkslategrey' font-size='100m,5pt,12pt' font-style='italic' font-weight='bold' opacity='0.4'/>
+                <label case='assume-title' color='darkslategrey' font-size='100m,5pt,12pt' font-style='italic' font-weight='bold' opacity='0.4' priority='-5'/>
             </condition>
         </layer>
     </scale>
@@ -1113,10 +1108,10 @@ For more information see http://www.cartotype.com.
         <layer name='place/minor'>
             <label duplicate='10000m,512pt' position='point'/>
             <condition exp='@=0 and @feature_type in { "vil","sub","nei" }'>
-                <label case='assume-title' color='darkslategrey' font-size='100m,5pt,12pt' font-weight='bold' opacity='0.4'/>
+                <label case='assume-title' color='darkslategrey' font-size='100m,5pt,12pt' font-weight='bold' opacity='0.4' priority='-5'/>
             </condition>
             <condition exp='@=0'>
-                <label case='assume-title' color='darkslategrey' font-size='75m,4pt,7pt' opacity='0.4'/>
+                <label case='assume-title' color='darkslategrey' font-size='75m,4pt,7pt' opacity='0.4' priority='-5'/>
             </condition>
         </layer>
     </scale>
