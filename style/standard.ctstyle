@@ -419,7 +419,7 @@ For more information see http://www.cartotype.com.
         </layer>
     </scale>
 
-    <scale max='40000000' min='40000'>
+    <scale max='100000000' min='40000'>
         <layer name='place/major'>
             <scale max='1000000'>
                 <condition exp='@=0'>
@@ -485,7 +485,7 @@ For more information see http://www.cartotype.com.
                 </condition>
             </scale>
 
-            <scale min='6000000' max='20000000'>
+            <scale min='6000000'>
                 <condition exp='@=0 and @feature_type="cit" and (@sub_type lt 4 or capital="yes")'>
                     <label case='assume-title' color='darkslategrey' font-size='130m,5pt,16pt' glow='white' glowWidth='7%,0.5pt' priority='-5' wrapWidth='12em'/>
                     <icon ref='town-icon' color='darkslategrey' needsLabel='yes'/>
@@ -508,7 +508,7 @@ For more information see http://www.cartotype.com.
                 </condition>
             </scale>
 
-            <scale min='20000000' max='40000000'>
+            <scale min='20000000'>
                 <condition exp='@=0 and @feature_type="cit" and capital="yes"'>
                     <icon ref='city-icon' color='darkslategrey' needsLabel='yes'/>
                     <label case='assume-title' color='darkslategrey' font-size='200m,6pt,30pt' glow='white' glowWidth='7%,0.5pt' priority='-7' wrapWidth='12em'/>
@@ -533,7 +533,7 @@ For more information see http://www.cartotype.com.
             <condition exp='@=0 and @feature_type="ham"'/>
         </layer>
     </scale>
-    <scale max='10000000'>
+    <scale max='100000000'>
         <layer name='land/major'>
             <scale max='100000'>
                 <label case='assume-title' color='mediumseagreen' condense='no' font-size='25m,5pt,8pt' glow='white' glowWidth='7%,0.5pt' maxPolygonLabelLength='2' position='horizontal' wrap='yes' wrapWidth='10em'/>
@@ -542,7 +542,7 @@ For more information see http://www.cartotype.com.
                 <shape fill='limegreen+0.2red' opacity='0.3'/>
             </condition>
             <condition exp='@feature_type="gla"'>
-                <shape fill='white' opacity='0.5'/>
+                <shape fill='white' opacity='0.2'/>
                 <label color='lightblue' maxScale='150000'/>
             </condition>
         </layer>
@@ -557,12 +557,9 @@ For more information see http://www.cartotype.com.
                 <condition exp='@feature_type in { "par","gol","com" }'>
                     <shape fill='lightgreen' opacity='0.3'/>
                 </condition>
-                <condition exp='@feature_type="gra"'>
-                    <shape fill='limegreen+0.2yellow' opacity='0.3'/>
-                </condition>
             </scale>
             <scale max='150000'>
-                <condition exp='@feature_type in { "all","cem","gho","mea","orc","pla","vin","vig","rec" }'>
+                <condition exp='@feature_type in { "all","cem","gho","orc","pla","vin","vig","rec" }'>
                     <shape fill='yellowgreen+white' opacity='0.3'/>
                 </condition>
             </scale>
@@ -573,7 +570,7 @@ For more information see http://www.cartotype.com.
             </scale>
             <scale max='150000'>
                 <condition exp='@feature_type="pea" and _munro="yes"'>
-                    <label case='assume-title' color='ncsred' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"+{font-style:roman}" ["_munro_number"]"+" "_ele' wrapLines='0' wrapWidth='10em'/>
+                    <label case='assume-title' color='ncsred+orange' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"+{font-style:roman}" ["_munro_number"]"+" "_ele' wrapLines='0' wrapWidth='10em'/>
                     <icon ref='peak-icon' color='ncsred'/>
                 </condition>
                 <condition exp='@feature_type in { "fel","pea","vol" }'>
@@ -605,7 +602,7 @@ For more information see http://www.cartotype.com.
         <line fill='lightblue'/>
         <shape fill='lightblue'/>
 
-        <condition exp='(@size gt 0.5cm) and (@feature_type in { "wat","rvb","doc","rsv" })'>
+        <condition exp='@feature_type in { "wat","rvb","doc","rsv" }'>
             <shape fill='lightblue'/>
             <condition exp='@size gt 1cm'>
                 <label case='none' color='ncsblue' font-size='25m,5pt,8pt' font-family='serif' font-style='italic' position='horizontal'  maxPolygonLabelExtra='1' maxPolygonLabelLength='3'
@@ -622,24 +619,27 @@ For more information see http://www.cartotype.com.
             <condition exp='@feature_type="riv" and @sub_type gt 0 and @sub_type lt 6'>
                 <line width='30m,0.8pt'/>
                 <condition exp='@size gt 1cm'>
-                    <label case='none' color='ncsblue' font-size='75%,5pt,18pt' maxScale='1000000' font-family='serif' font-style='italic' position='centralpath'
+                    <label case='none' color='ncsblue' font-size='36m,5pt,18pt' maxScale='1000000' font-family='serif' font-style='italic' position='centralpath'
                         duplicate='1000m,512pt' glow='white' glowWidth='7%,0.5pt' priority='1'/>
                 </condition>
             </condition>
         </scale>
-        
+
         <scale max='10000000'>
             <condition exp='@feature_type="riv"'>
                 <line width='20m,0.4pt'/>
                 <condition exp='@size gt 1cm'>
-                    <label case='none' color='ncsblue' font-size='75%,5pt,18pt' maxScale='2000000' font-family='serif' font-style='italic' position='centralpath'
+                    <label case='none' color='ncsblue' font-size='20m,5pt,18pt' maxScale='2000000' font-family='serif' font-style='italic' position='centralpath'
                            duplicate='1000m,512pt' glow='white' glowWidth='7%,0.5pt' priority='1'/>
                 </condition>
             </condition>
+        </scale>
+
+        <scale max='1000000'>
             <condition exp='@feature_type="can"'>
-                <line width='8m,0.6pt'/>
+                <line width='8m,0.4pt'/>
                 <condition exp='@size gt 1cm'>
-                    <label case='none' color='ncsblue' font-size='75%,5pt,18pt' maxScale='2000000' font-family='serif' font-style='italic' position='centralpath'
+                    <label case='none' color='ncsblue' font-size='20m,5pt,18pt' maxScale='2000000' font-family='serif' font-style='italic' position='centralpath'
                            duplicate='1000m,512pt' glow='white' glowWidth='7%,0.5pt' priority='1'/>
                 </condition>
             </condition>
@@ -652,11 +652,11 @@ For more information see http://www.cartotype.com.
             <shape fill='lightblue'/>
             <condition exp='@feature_type="str"'>
                 <line width='4m,0.3pt'/>
-                <label font-size='75%,5pt,18pt'/>
+                <label font-size='16m,5pt,12pt'/>
             </condition>
             <condition exp='@feature_type="dra"'>
                 <line width='2m,0.3pt'/>
-                <label font-size='75%,5pt,18pt'/>
+                <label font-size='10m,5pt,12pt'/>
             </condition>
             <macro ref='water-minor'/>
         </layer>
@@ -728,7 +728,7 @@ For more information see http://www.cartotype.com.
                 </condition>
             </layer>
         </scale>
-        <scale max='15000000'>
+        <scale max='50000000'>
             <layer name='road/major' road='true'>
                 <scale max='3000000'>
                     <condition exp='@feature_type in { "primary road", "primary road link" }'>
@@ -755,20 +755,18 @@ For more information see http://www.cartotype.com.
                         <macro ref='standard-tunnel'/>
                     </condition>
                 </scale>
-                <scale max='10000000'>
-                    <condition exp='@feature_type="trunk road"'>
-                        <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.5white' width='12m@6000_72m@75000,0.5pt'/>
-                        <scale max='500000'>
-                            <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='75%,5pt,18pt' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.6white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
-                        </scale>
-                        <scale max='50000'>
-                            <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"' letter-spacing='0.2em' word-spacing='0.1em'/>
-                        </scale>
-                        <macro color='slategrey' ref='one-way-arrow'/>
-                        <macro ref='standard-bridge'/>
-                        <macro ref='standard-tunnel'/>
-                    </condition>
-                </scale>
+                <condition exp='@feature_type="trunk road"'>
+                    <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.5white' width='12m@6000_72m@75000,0.5pt'/>
+                    <scale max='500000'>
+                        <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='75%,5pt,18pt' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.6white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
+                    </scale>
+                    <scale max='50000'>
+                        <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en+{font-style:italic}"&#10;("name:en")"' letter-spacing='0.2em' word-spacing='0.1em'/>
+                    </scale>
+                    <macro color='slategrey' ref='one-way-arrow'/>
+                    <macro ref='standard-bridge'/>
+                    <macro ref='standard-tunnel'/>
+                </condition>
                 <scale max='1500000'>
                     <condition exp='@feature_type="motorway link"'>
                         <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.03black+0.2white' width='10m@6000_60m@75000,0.6pt'/>
@@ -779,21 +777,19 @@ For more information see http://www.cartotype.com.
                         <macro ref='standard-tunnel'/>
                     </condition>
                 </scale>
-                <scale max='15000000'>
-                    <condition exp='@feature_type="motorway"'>
-                        <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.03black+0.2white' width='12m@6000_100m@75000,0.75pt'/>
-                        <scale max='75000'>
-                            <label case='upper' color='dimgrey' duplicate='1000m,256pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en'/>
-                        </scale>
-                        <scale max='2000000'>
-                            <condition exp='@size gt 1cm'>
-                                <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='90%,5pt,18pt' font-weight='bold' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.5white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
-                            </condition>
-                        </scale>
-                        <macro ref='standard-bridge'/>
-                        <macro ref='standard-tunnel'/>
-                    </condition>
-                </scale>
+                <condition exp='@feature_type="motorway"'>
+                    <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.03black+0.2white' width='12m@6000_100m@75000,0.75pt'/>
+                    <scale max='75000'>
+                        <label case='upper' color='dimgrey' duplicate='1000m,256pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';int_name;name:en'/>
+                    </scale>
+                    <scale max='2000000'>
+                        <condition exp='@size gt 1cm'>
+                            <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='90%,5pt,18pt' font-weight='bold' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.5white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
+                        </condition>
+                    </scale>
+                    <macro ref='standard-bridge'/>
+                    <macro ref='standard-tunnel'/>
+                </condition>
             </layer>
         </scale>
         <scale max='6000000'>
@@ -896,7 +892,7 @@ For more information see http://www.cartotype.com.
                     <line dashArray='4,2' fill='black' width='1.5m,0.5pt'/>
                 </condition>
                 <condition exp='piste:difficulty="freeride"'>
-                    <line dashArray='4,2' fill='yellow' width='1.5m,0.5pt'/>
+                    <line dashArray='4,2' fill='ncsyellow' width='1.5m,0.5pt'/>
                 </condition>
             </condition>
         </layer>

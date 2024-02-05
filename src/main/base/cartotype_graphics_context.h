@@ -560,9 +560,9 @@ class TextParam
 
     /**
     If drawing on a path, the sine of the maximum tolerated angle between
-    baselines of successive characters. The default is .707 = sin(45 degrees).
+    baselines of successive characters. The default is 0.5 = sin(30 degrees).
     */
-    double MaxTurnSine = 0.707106781;
+    double MaxTurnSine = 0.5;
 
     /** The type of the baseline used to align the text. */
     TextBaseline Baseline = TextBaseline::Alphabetic;
